@@ -1,0 +1,40 @@
+Dependency Inversion Principle
+
+A. Niveles de alto nivel no deben depender en niveles bajos
+Los dos deben depender en abstracciones
+
+B. Abstracciones no deben de depender en detalles
+Detalles deben depender en abstracciones
+
+Uno de los problemas mas grandes al inicio en personas novatas, es que no saben que es una dependencia.
+Básicamente cuando mandamos a llamar un método de otra clase dentro de otra clase.
+Ahi podemos decir que una clase depende de otra para su funcionamiento.
+
+Hay que tomar en cuenta que, entre menos modifiquemos las clases, y mejor implementemos interfaces, es la clave para dependency inversion
+Hay que desacoplar un High Level Module y trabajar con las interfaces
+En vez de mandar a llamar a clases como tal, hay que trabajar con las interfaces.
+
+En el siguiente ejemplo,
+Tenemos una clase llamada Message
+ - que forma parte de nuestro modelo. Tiene un string msg y un LocalDateTime timestamp.
+
+En la parte de servicio tenemos
+ - Formatter - que es nuestra interfaz
+ - JSONFormatter - una clase que formatea a JSON
+ - TextFormatter - una clase que formatea a texto
+
+Tenemos una excepción
+ - FormatException como una clase que hereda de exception para trabajar con nuestros formatters
+
+Y finalmente, tenemos una clase llamada MessagePrinter
+ - Con un método llamado writeMessage.
+ - Recibe unos parámetros como mensaje y fileName, e implementa  una clase JSONFormatter
+
+Sin embargo, vemos que esta clase es la que tiene dependencia directa con JSONFormatter y con PrintWriter
+PrintWriter es una dependencia de java.io.PrintWriter
+El trabajo que hay que hacer es remover correctamente estas dependencias de objetos y depender de abstracciones.
+
+Lo que hay que realizar es quitar las dependencias.
+En el método writeMessage hay que mandar por parámetro la interface Formatter y PrintWriter y adecuar el código de esta clase.
+De igual manera hay que adecuar el main
+

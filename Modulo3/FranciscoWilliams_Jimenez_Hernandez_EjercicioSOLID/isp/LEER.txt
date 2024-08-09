@@ -1,0 +1,31 @@
+Interface Segregation Principle
+
+Los Clientes no deben depender en metodos que no usen (Interface Pollution)
+No hay que hacer nuestras interfaces grandes
+Clases que tengan metodos vacíos implementados hay que evitarlos
+Sabemos que hay Interface Pollution cuando hay métodos que no se implementan
+o que avientan UnsuppoertedOperationException
+
+Tenemos una entidad.
+ - Solo tiene un id
+
+Tenemos otra clase llamada User que hereda de Entity
+ - Esta tiene un nombre y una fecha lastLogin con setters y getters
+
+Tenemos una tercer clase llamada Order que hereda de Entity también
+ - Esta tiene de atributos un double totalValue y una fecha orderPlacedOn con respectivos getter y setter
+
+En una aplicación normal, se tiene una capa de 'Persistencia' siempre, para poderse conectar al backend.
+Aqui, en este ejemplo, nos vamos a quedar solamente en la capa de servicio.
+
+Tenemos una clase UserPersistenceService que implementa la interfaz PersistenceService.
+Esta es nuestra capa de servicio. Aqui tenemos algunos métodos implementados parecidos a un CRUD.
+PersistenceService contiene la definición de los métodos que se van a usar, tal cual, implementados como interfaz.
+Ya está implementado UserPersistenceService.
+
+Como trabajo, hay que implementar OrderPersistenceService, puesto que hay que extender nuestro dominio.
+Tal cual, es crear una clase que herede igual de PersistenceService.
+Cuando lo logren, notarán que hay un método que no cuadra, y que puede llegar a generar un UnsuppoertedOperationException
+ - List<T> findByName(String name);
+
+Lo que deben hacer es encontrar una manera de que no viole ISP

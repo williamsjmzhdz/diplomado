@@ -1,0 +1,25 @@
+Open Closed Principle
+
+Éste proyecto representa una aplicación de suscripciones a distintos servicios en general.
+
+Las clases de los servicios son:
+- ISPSubscriber
+- PhoneSubscriber
+
+Dichas clases son soportadas por
+- CallHistory - Clase que lleva el registro histórico de las llamadas en una lista
+- InternetSessionHistory - Clase que lleva el registro histórico de la sesión de internet en una lista
+
+El código que nos interesa esta en los subscriber.
+Identificar las semejanzas y utilizar OCP para separar y ordenar de acuerdo a las herencias.
+
+A parte, hay un test ISPSubscriberTest y PhoneSubscriberTest que funcionan adecuadamente.
+El método funciona correctamente. Y así debe de seguir funcionando.
+Favor de Ejecutar el caso de prueba y analizar el código.
+
+Como ven es adecuar a OCP las clases de Subscriber.
+No tocar las clases CallHistory ni InternetSessionHistory
+
+Refactorizar el codigo.
+
+Suerte!
