@@ -1,0 +1,34 @@
+package unam.diplomado.pixup.usuario.messaging;
+
+import jakarta.annotation.Resource;
+import jakarta.ejb.Stateless;
+import jakarta.jms.*;
+
+import java.util.logging.Level;
+
+@Stateless
+public class NotificacionProducerImpl implements NotificacionProducer {
+
+    @Resource(name = "java:/JmsXA")
+    private QueueConnectionFactory connectionFactory;
+
+    @Resource(mappedName = "java:/jms/queue/NotificacionQueue")
+    private Queue notificacionQueue;
+
+    @Override
+    public boolean enviarNotificacionAltaUsuario(Integer idUsuario, String email) {
+        try (JMSContext context = connectionFactory.createContext()) {
+            MapMessage mapMessage = context.createMapMessage();
+            mapMessage.setInt("idUsuario", idUsuario);
+            mapMessage.setString("email", email);
+            JMSProducer producer = context.createProducer();
+            producer.send(notificacionQueue, mapMessage);
+            //log.info("Mensaje enviado a NotificacionQueue: idUsuario = " + idUsuario + ", email: " + email);
+            return true;
+        } catch (Exception e) {
+            //log.log(Level.SEVERE, "Error al enviar mensaje NotificacionQueue");
+            return false;
+        }
+    }
+
+}

@@ -1,0 +1,5 @@
+CREATE DATABASE primeraBD;
+
+CREATE DATABASE segundaBD;
+
+DROP DATABASE primeraBD;

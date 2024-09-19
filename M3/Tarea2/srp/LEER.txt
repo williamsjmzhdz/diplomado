@@ -1,0 +1,38 @@
+Single Responsibility Principle
+
+Éste proyecto representa una aplicación de operaciones realizadas sobre Usuarios.
+
+El código que nos interesa esta en la clase UserController.
+
+Esta clase tiene carios metodos:
+- createUser: método creado para almacenar un usuario por medio de un archivo JSON.
+- isValidUser: método que sirve para validar el usuario mediante JSON. Valida de diferentes maneras.
+- isPresent: método usado por el método isValidUser para validar si existen datos en el JSON
+- isValidAlphaNumeric: método usado por el método isValidUser para validar caracteres
+- isValidEmail: método usado por el método isValidUser para validar formato de correos
+
+La clase User es un simple POJO que nos indica 3 atributos, nombre, email y dirección.
+Misma clase nos sirve para mapear los datos recibidos por el objeto JSON.
+
+La clase Store simboliza una BD donde se almacenan los datos provenientes de la clase User usando un HashMap.
+
+A parte, hay un test UserControllerTest con un método de prueba.
+El método funciona correctamente. Y así debe de seguir funcionando.
+Favor de Ejecutar el caso de prueba y analizar el código.
+
+Se agregan dos clases:
+- UserPersistenceService
+- UserValidator
+
+Notamos al hacer el análisis que la clase UserController tiene mucho peso. Se realiza el guardado de los datos (persistencia)
+y al mismo tiempo, realiza la validación de los datos obtenidos por JSON.
+
+Se requieren hacer dos cosas en UserController:
+- Separar la parte de la validación en la clase UserValidator
+- Separar el guardado de los datos en UserPersistenceService
+
+Como ven son dos cambios diferentes.
+
+Refactorizar el codigo para que estas dos responsabilidades estén en clases diferentes.
+
+Suerte!

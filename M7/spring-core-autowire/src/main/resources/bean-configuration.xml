@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <bean id="empleado" class="dgtic.core.modelo.Empleado" autowire="constructor">
+        <property name="nombre" value="Tomás"/>
+        <property name="edad" value="23"/>
+    </bean>
+
+    <bean id="gestion" class="dgtic.core.modelo.GestionProyectos"/>
+    <bean id="actividad" class="dgtic.core.modelo.IntercambioConocimientos"/>
+    <bean id="planificacionProyectos" class="dgtic.core.modelo.PlanificacionProyectos" />
+
+</beans>

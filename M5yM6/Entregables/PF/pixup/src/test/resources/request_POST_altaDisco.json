@@ -1,0 +1,19 @@
+{
+    "disco": {
+        "titulo": "Luxury Disease",
+        "precio": 100.30,
+        "existencia": 10,
+        "descuento": 10.00,
+        "fechaLanzamiento": "2022-09-09T11:12:12",
+        "imagen": "oor_luxury_disease.png"
+    },
+    "artista": {
+        "id": 1
+    },
+    "disquera": {
+        "id": 1
+    },
+    "generoMusical": {
+        "id": 1
+    }
+}

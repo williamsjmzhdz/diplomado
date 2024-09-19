@@ -1,0 +1,3 @@
+1.- ¿Cuál es la diferencia y cuándo usar merge vs persist?, en el método saveOrUpdate() de JpaColoniaRepository usamos persist() para actualizar o insertar, ¿no deberíamos usar merge?
+2.- ¿Hay que modificar el JSON de respuesta para que muestre los mismos datos que el Response dado?, el mío para cada entidad anidada muestra todos sus atributos, mientras que el dado en el PDF muesta solo el id.
+3.- ¿Por qué en mi caso las excepciones de negocio se envuelven en un EJBException y en su código no pasaba así?, ¿lo dejo así o cómo lo soluciono?

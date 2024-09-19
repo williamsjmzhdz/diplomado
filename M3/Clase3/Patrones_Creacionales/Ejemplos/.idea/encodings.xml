@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Abstract_Factory/ECommerceProducts/ECommerceProducts/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Abstract_Factory/ECommerceProducts/ECommerceProducts/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Abstract_Factory/MedicalSoftware/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Abstract_Factory/MedicalSoftware/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Builder/MedicalSystem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Builder/MedicalSystem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Builder/MedicalSystemV2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Builder/MedicalSystemV2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Prototype/RHSystem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Prototype/RHSystem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Singleton/ECommerce/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Singleton/ECommerce/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

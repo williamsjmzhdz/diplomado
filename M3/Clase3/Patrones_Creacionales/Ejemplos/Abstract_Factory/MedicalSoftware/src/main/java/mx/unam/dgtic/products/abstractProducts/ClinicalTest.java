@@ -1,0 +1,10 @@
+package mx.unam.dgtic.products.abstractProducts;
+
+/***
+ ** Unidad 3 - Principios y Patrones de Diseño
+ **
+ **  @author: hxa.dev
+ ***/
+public interface ClinicalTest {
+    void runTest();
+}

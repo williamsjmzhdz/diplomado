@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Definiciones de beans de tipo Usuario -->
+    <bean id="williams" class="dgtic.core.modelo.Usuario" scope="singleton">
+        <property name="nombre" value="Francisco Williams"/>
+        <property name="apellidoPaterno" value="Jiménez"/>
+        <property name="apellidoMaterno" value="Hernández"/>
+        <property name="correoElectronico" value="williamsjmzhdz@gmail.com"/>
+        <property name="contrasenia" value="williams123"/>
+    </bean>
+    <bean id="maria" class="dgtic.core.modelo.Usuario" scope="singleton">
+        <property name="nombre" value="María"/>
+        <property name="apellidoPaterno" value="González"/>
+        <property name="apellidoMaterno" value="López"/>
+        <property name="correoElectronico" value="maria.gonzalez.lopez@example.com"/>
+        <property name="contrasenia" value="maria123"/>
+    </bean>
+    <bean id="juan" class="dgtic.core.modelo.Usuario" scope="singleton">
+        <property name="nombre" value="Juan"/>
+        <property name="apellidoPaterno" value="Pérez"/>
+        <property name="apellidoMaterno" value="Martínez"/>
+        <property name="correoElectronico" value="juan.perez.martinez@example.com"/>
+        <property name="contrasenia" value="juan123"/>
+    </bean>
+
+    <!-- Definiciones de beans de tipo Descuento -->
+    <bean id="descuentoBienvenida" class="dgtic.core.modelo.Descuento" scope="singleton">
+        <property name="porcentaje" value="30"/>
+        <property name="nombre" value="Descuento por Bienvenida"/>
+        <property name="usuario" ref="williams"/> <!-- Inyectamos el bean 'williams' -->
+    </bean>
+    <bean id="descuentoEspecial" class="dgtic.core.modelo.Descuento" scope="singleton">
+        <property name="porcentaje" value="20"/>
+        <property name="nombre" value="Descuento Especial"/>
+        <property name="usuario" ref="maria"/> <!-- Inyectamos el bean 'maria' -->
+    </bean>
+    <bean id="descuentoAniversario" class="dgtic.core.modelo.Descuento" scope="singleton">
+        <property name="porcentaje" value="15"/>
+        <property name="nombre" value="Descuento Aniversario"/>
+        <property name="usuario" ref="juan"/> <!-- Inyectamos el bean 'juan' -->
+    </bean>
+
+    <!-- Definiciones de beans de tipo Rol -->
+    <bean id="rolCliente" class="dgtic.core.modelo.Rol" scope="singleton">
+        <property name="nombre" value="Cliente"/>
+        <property name="descripcion" value="Persona que compra productos o servicios a través del sistema."/>
+    </bean>
+    <bean id="rolVendedor" class="dgtic.core.modelo.Rol" scope="singleton">
+        <property name="nombre" value="Vendedor"/>
+        <property name="descripcion" value="Encargado de gestionar ventas y atender clientes, ofreciendo productos."/>
+    </bean>
+    <bean id="rolAdministrador" class="dgtic.core.modelo.Rol" scope="singleton">
+        <property name="nombre" value="Administrador"/>
+        <property name="descripcion" value="Usuario con acceso completo para gestionar el sistema, usuarios y configuraciones."/>
+    </bean>
+
+    <!-- Definiciones de beans de tipo UsuarioRol -->
+
+    <!-- Asignar rol Cliente a Williams -->
+    <bean id="usuarioRolWilliamsCliente" class="dgtic.core.modelo.UsuarioRol" scope="singleton">
+        <property name="usuario" ref="williams"/>
+        <property name="rol" ref="rolCliente"/>
+        <property name="fechaAsignacion">
+            <bean class="java.time.LocalDateTime" factory-method="now"/>
+        </property>
+    </bean>
+
+    <!-- Asignar rol Vendedor a María -->
+    <bean id="usuarioRolMariaVendedor" class="dgtic.core.modelo.UsuarioRol" scope="singleton">
+        <property name="usuario" ref="maria"/>
+        <property name="rol" ref="rolVendedor"/>
+        <property name="fechaAsignacion">
+            <bean class="java.time.LocalDateTime" factory-method="now"/>
+        </property>
+    </bean>
+
+    <!-- Asignar rol Administrador a Juan -->
+    <bean id="usuarioRolJuanAdministrador" class="dgtic.core.modelo.UsuarioRol" scope="singleton">
+        <property name="usuario" ref="juan"/>
+        <property name="rol" ref="rolAdministrador"/>
+        <property name="fechaAsignacion">
+            <bean class="java.time.LocalDateTime" factory-method="now"/>
+        </property>
+    </bean>
+
+
+
+</beans>
