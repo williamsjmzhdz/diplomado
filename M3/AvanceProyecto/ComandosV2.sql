@@ -1,8 +1,9 @@
 USE bazarboost;
 
+-- Eliminación de tablas en el orden adecuado (hijas primero)
 DROP TABLE IF EXISTS ProductosFacturas;
 DROP TABLE IF EXISTS ProductosCarrito;
-DROP TABLE IF EXISTS Reseñas;
+DROP TABLE IF EXISTS Resenias;
 DROP TABLE IF EXISTS Facturas;
 DROP TABLE IF EXISTS MetodosPago;
 DROP TABLE IF EXISTS Direcciones;
@@ -13,14 +14,14 @@ DROP TABLE IF EXISTS Roles;
 DROP TABLE IF EXISTS Categorias;
 DROP TABLE IF EXISTS Usuarios;
 
--- Creación de tablas y claves foráneas
+-- Creación de tablas y claves foráneas (padres primero)
 CREATE TABLE Usuarios (
     usuario_id INT AUTO_INCREMENT,
     nombre VARCHAR(40) NOT NULL,
     apellido_paterno VARCHAR(40) NOT NULL,
     apellido_materno VARCHAR(40) NOT NULL,
     correo_electronico VARCHAR(80) NOT NULL,
-    contraseña VARCHAR(40) NOT NULL, 
+    contrasenia VARCHAR(40) NOT NULL, 
     CONSTRAINT PK_Usuarios PRIMARY KEY (usuario_id),
     CONSTRAINT UQ_Usuarios_correo_electronico UNIQUE (correo_electronico)
 );
@@ -130,18 +131,18 @@ CREATE TABLE Facturas (
     CONSTRAINT CK_Facturas_porcentaje_impuestos CHECK (porcentaje_impuestos >= 0 AND porcentaje_impuestos <= 100)
 );
 
-CREATE TABLE Reseñas (
-    reseña_id INT AUTO_INCREMENT,
+CREATE TABLE Resenias (
+    resenia_id INT AUTO_INCREMENT,
     comentario VARCHAR(255) NOT NULL,
     calificacion INT NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     usuario_id INT,
     producto_id INT NOT NULL,
-    CONSTRAINT PK_Reseñas PRIMARY KEY (reseña_id),
-    CONSTRAINT UQ_Reseñas_usuario_id_producto_id UNIQUE (usuario_id, producto_id),
-    CONSTRAINT FK_Reseñas_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE SET NULL,
-    CONSTRAINT FK_Reseñas_producto_id FOREIGN KEY (producto_id) REFERENCES Productos(producto_id) ON DELETE CASCADE,
-    CONSTRAINT CK_Reseñas_calificacion CHECK (calificacion >= 1 AND calificacion <= 5)
+    CONSTRAINT PK_Resenias PRIMARY KEY (resenia_id),
+    CONSTRAINT UQ_Resenias_usuario_id_producto_id UNIQUE (usuario_id, producto_id),
+    CONSTRAINT FK_Resenias_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE SET NULL,
+    CONSTRAINT FK_Resenias_producto_id FOREIGN KEY (producto_id) REFERENCES Productos(producto_id) ON DELETE CASCADE,
+    CONSTRAINT CK_Resenias_calificacion CHECK (calificacion >= 1 AND calificacion <= 5)
 );
 
 CREATE TABLE ProductosCarrito(
@@ -179,15 +180,15 @@ CREATE INDEX idx_productos_producto_id ON Productos(producto_id);
 CREATE INDEX idx_metodospago_metodo_pago_id ON MetodosPago(metodo_pago_id);
 CREATE INDEX idx_direcciones_direccion_id ON Direcciones(direccion_id);
 CREATE INDEX idx_usuarios_correo_electronico ON Usuarios(correo_electronico);
-CREATE INDEX idx_productoscarrito_usuario_id ON ProductosCarrito(usuario_id);
+CREATE INDEX idx_productoscarrito_usuario_id ON productoscarrito(usuario_id);
 CREATE INDEX idx_metodospago_usuario_id ON MetodosPago(usuario_id);
 CREATE INDEX idx_direcciones_usuario_id ON Direcciones(usuario_id);
 CREATE INDEX idx_descuentos_usuario_id ON Descuentos(usuario_id);
-CREATE INDEX idx_resenas_producto_id ON Reseñas(producto_id);
+CREATE INDEX idx_resenas_producto_id ON Resenias(producto_id);
 
 -- Inserts de datos de prueba
 -- Inserciones en la tabla Usuarios
-INSERT INTO Usuarios (nombre, apellido_paterno, apellido_materno, correo_electronico, contraseña) VALUES
+INSERT INTO Usuarios (nombre, apellido_paterno, apellido_materno, correo_electronico, contrasenia) VALUES
 ('Juan', 'Pérez', 'López', 'juan.perez@example.com', 'password123'),
 ('María', 'Gómez', 'Martínez', 'maria.gomez@example.com', 'password123'),
 ('Pedro', 'Sánchez', 'Hernández', 'pedro.sanchez@example.com', 'password123');
@@ -201,7 +202,7 @@ INSERT INTO Categorias (nombre) VALUES
 -- Inserciones en la tabla Roles
 INSERT INTO Roles (nombre, descripcion) VALUES
 ('Administrador', 'Acceso total al sistema'),
-('Cliente', 'Puede realizar compras y dejar reseñas'),
+('Cliente', 'Puede realizar compras y dejar resenias'),
 ('Vendedor', 'Puede gestionar productos y ventas');
 
 -- Inserciones en la tabla Descuentos
@@ -240,8 +241,8 @@ INSERT INTO Facturas (subtotal, total, porcentaje_impuestos, usuario_id, metodo_
 (300.00, 330.00, 10, 2, 2, 2),
 (450.00, 495.00, 10, 3, 3, 3);
 
--- Inserciones en la tabla Reseñas
-INSERT INTO Reseñas (comentario, calificacion, usuario_id, producto_id) VALUES
+-- Inserciones en la tabla Resenias
+INSERT INTO Resenias (comentario, calificacion, usuario_id, producto_id) VALUES
 ('Excelente producto', 5, 1, 1),
 ('Buena calidad', 4, 2, 2),
 ('Cómodo y práctico', 4, 3, 3);
