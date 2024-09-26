@@ -16,15 +16,16 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @SpringBootApplication
-@PropertySource("classpath:application.properties") // Dónde está la configuración de datasource
+/*@PropertySource("classpath:application.properties") // Dónde está la configuración de datasource
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "mx.unam.dgtic")
+@EnableJpaRepositories(basePackages = "mx.unam.dgtic")*/
 public class M800Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(M800Application.class, args);
 	}
 
+	/*
 	@Autowired
 	private DataSource dataSource;
 
@@ -57,5 +58,5 @@ public class M800Application {
 
 		return transactionManager;
 	}
-
+*/
 }
