@@ -1,0 +1,22 @@
+Liskov Substitution Principle
+
+En este caso, tenemos dos clases:
+
+- Rectangle
+- Square
+
+Square hereda de Rectangle.
+Desde el punto de vista real, son cosas distintas, pero comparten que los 2 tienen 4 lados.
+
+De la misma manera tenemos un test case LiskovTest, donde procedemos a realizar un test.
+Obviamente, este test esta erroneo, puesto que hay u nmétodo el square que hace que el test truene.
+
+La tarea es mas destructiva.
+Hay que adecuar el principio de Liskov en estos ejemplos.
+La manera correcta es romper la relación de herencia existente.
+Matemáticamente, un square si es un rectángulo, pero en POO esa relación no es nada válida.
+
+Crear una interfaz Shape que tenga común comportamiento dentro.
+Y finalmente, adecuar el test case para que funcione con las clases separadas sin que esten heredadas.
+
+Suerte!

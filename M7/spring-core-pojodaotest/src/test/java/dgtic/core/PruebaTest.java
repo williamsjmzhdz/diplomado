@@ -76,9 +76,9 @@ public class PruebaTest {
         Estudiante valorEsperado = new Estudiante("234", "Raul", 18);
         Estudiante valorEsperadoTemp = valorEsperado;
         //Assertions.assertSame(valorEsperado, valorActual);
-        //Assertions.assertSame(valorEsperado, valorEsperadoTemp);
-        //Assertions.assertNotSame(valorEsperado, valorActual);
-        Assertions.assertEquals(valorEsperado, valorActual);
+        Assertions.assertSame(valorEsperado, valorEsperadoTemp);
+        Assertions.assertNotSame(valorEsperado, valorActual);
+        //Assertions.assertNotEquals(valorEsperado, valorActual);
     }
 
     @Test
