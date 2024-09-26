@@ -21,7 +21,7 @@ CREATE TABLE Usuarios (
     apellido_paterno VARCHAR(40) NOT NULL,
     apellido_materno VARCHAR(40) NOT NULL,
     correo_electronico VARCHAR(80) NOT NULL,
-    contrasenia VARCHAR(40) NOT NULL, 
+    contrasenia VARCHAR(40) NOT NULL,  
     CONSTRAINT PK_Usuarios PRIMARY KEY (usuario_id),
     CONSTRAINT UQ_Usuarios_correo_electronico UNIQUE (correo_electronico)
 );
@@ -180,11 +180,11 @@ CREATE INDEX idx_productos_producto_id ON Productos(producto_id);
 CREATE INDEX idx_metodospago_metodo_pago_id ON MetodosPago(metodo_pago_id);
 CREATE INDEX idx_direcciones_direccion_id ON Direcciones(direccion_id);
 CREATE INDEX idx_usuarios_correo_electronico ON Usuarios(correo_electronico);
-CREATE INDEX idx_productoscarrito_usuario_id ON ProductosbazarboostCarrito(usuario_id);
+CREATE INDEX idx_productoscarrito_usuario_id ON ProductosCarrito(usuario_id);
 CREATE INDEX idx_metodospago_usuario_id ON MetodosPago(usuario_id);
 CREATE INDEX idx_direcciones_usuario_id ON Direcciones(usuario_id);
 CREATE INDEX idx_descuentos_usuario_id ON Descuentos(usuario_id);
-CREATE INDEX idx_resenas_producto_id ON Resenias(producto_id);
+CREATE INDEX idx_resenias_producto_id ON Resenias(producto_id);
 
 -- Inserts de datos de prueba
 -- Inserciones en la tabla Usuarios
