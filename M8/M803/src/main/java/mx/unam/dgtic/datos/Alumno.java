@@ -30,6 +30,41 @@ import java.util.Objects;
         name = "Alumno.buscarPorNombreYPaterno",
         query = "SELECT a FROM Alumno a WHERE a.nombre = ?1 AND a.paterno = ?2"
 )
+
+@NamedQuery(
+        name = "Alumno.buscarPorEstadoCurp",
+        query = "SELECT a FROM Alumno a WHERE SUBSTRING(a.curp, 12, 2) = :codigoEstado"
+)
+
+@NamedQuery(
+        name = "Alumno.contarPorEstadoCurp",
+        query = "SELECT COUNT(a) FROM Alumno a WHERE SUBSTRING(a.curp, 12, 2) = :codigoEstado"
+)
+
+@NamedQuery(
+        name = "Alumno.buscarPorCurpContenga",
+        query = "SELECT a FROM Alumno a WHERE a.curp LIKE CONCAT('%', :substring, '%')"
+)
+
+@NamedQuery(
+        name = "Alumno.contarPorCurpContenga",
+        query = "SELECT COUNT(a) FROM Alumno a WHERE a.curp LIKE CONCAT('%', :substring, '%')"
+)
+
+@NamedQuery(
+        name = "Alumno.searchByEstaturaNotBetweenOrderByEstatura",
+        query = "SELECT a FROM Alumno a WHERE " +
+                "a.estatura NOT BETWEEN :estaturaini AND :estaturafin " +
+                "ORDER BY a.estatura ASC"
+)
+
+@NamedNativeQuery(
+        name = "Alumno.buscarAltosMayorPromedio",
+        query = "SELECT * FROM Alumnos " +
+                "WHERE estatura >= (SELECT AVG(estatura) FROM Alumnos) " +
+                "ORDER BY estatura DESC",
+        resultClass = Alumno.class
+)
 public class Alumno {
 
     @Id

@@ -8,3 +8,12 @@ CREATE TABLE Alumnos (
   curp varchar(18) unique key,
   PRIMARY KEY (matricula)
 );
+
+DROP TABLE IF EXISTS Materia;
+CREATE TABLE Materia (
+    clave_materia VARCHAR(50) NOT NULL,
+    materia VARCHAR(100) NOT NULL,
+    creditos INT NOT NULL,
+    horas INT NOT NULL,
+    PRIMARY KEY (clave_materia)
+);
