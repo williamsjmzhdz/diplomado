@@ -20,9 +20,11 @@ CREATE TABLE Usuarios (
     nombre VARCHAR(40) NOT NULL,
     apellido_paterno VARCHAR(40) NOT NULL,
     apellido_materno VARCHAR(40) NOT NULL,
+    telefono VARCHAR(10) NOT NULL,
     correo_electronico VARCHAR(80) NOT NULL,
     contrasenia VARCHAR(40) NOT NULL,  
     CONSTRAINT PK_Usuarios PRIMARY KEY (usuario_id),
+    CONSTRAINT UQ_Usuarios_telefono UNIQUE (telefono),
     CONSTRAINT UQ_Usuarios_correo_electronico UNIQUE (correo_electronico)
 );
 
@@ -90,7 +92,6 @@ CREATE TABLE Direcciones (
     calle VARCHAR(60) NOT NULL,
     numero_domicilio INT NOT NULL,
     codigo_postal VARCHAR(10) NOT NULL,
-    telefono_contacto VARCHAR(20) NOT NULL,
     usuario_id INT NOT NULL,
     CONSTRAINT PK_Direcciones PRIMARY KEY (direccion_id),
     CONSTRAINT UQ_Direcciones UNIQUE (estado, ciudad, colonia, calle, numero_domicilio, codigo_postal),
@@ -101,8 +102,7 @@ CREATE TABLE MetodosPago (
     metodo_pago_id INT AUTO_INCREMENT,
     nombre_titular VARCHAR(120) NOT NULL,
     numero_tarjeta VARCHAR(20) NOT NULL,
-    fecha_expiracion TIMESTAMP NOT NULL,
-    codigo_seguridad CHAR(3) NOT NULL,
+    fecha_expiracion CHAR(7) NOT NULL,
     tipo_tarjeta ENUM('Débito', 'Crédito') NOT NULL,
     monto DECIMAL(10, 2) NOT NULL,
     usuario_id INT NOT NULL,
@@ -111,6 +111,7 @@ CREATE TABLE MetodosPago (
     CONSTRAINT FK_MetodosPago_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE CASCADE,
     CONSTRAINT CK_MetodosPago_monto CHECK (monto >= 0)
 );
+
 
 CREATE TABLE Facturas (
     factura_id INT AUTO_INCREMENT,
@@ -187,11 +188,13 @@ CREATE INDEX idx_descuentos_usuario_id ON Descuentos(usuario_id);
 CREATE INDEX idx_resenias_producto_id ON Resenias(producto_id);
 
 -- Inserts de datos de prueba
+-- Inserts de datos de prueba
+
 -- Inserciones en la tabla Usuarios
-INSERT INTO Usuarios (nombre, apellido_paterno, apellido_materno, correo_electronico, contrasenia) VALUES
-('Juan', 'Pérez', 'López', 'juan.perez@example.com', 'password123'),
-('María', 'Gómez', 'Martínez', 'maria.gomez@example.com', 'password123'),
-('Pedro', 'Sánchez', 'Hernández', 'pedro.sanchez@example.com', 'password123');
+INSERT INTO Usuarios (nombre, apellido_paterno, apellido_materno, correo_electronico, contrasenia, telefono) VALUES
+('Juan', 'Pérez', 'López', 'juan.perez@example.com', 'password123', '5551234567'),
+('María', 'Gómez', 'Martínez', 'maria.gomez@example.com', 'password123', '5557654321'),
+('Pedro', 'Sánchez', 'Hernández', 'pedro.sanchez@example.com', 'password123', '5556781234');
 
 -- Inserciones en la tabla Categorias
 INSERT INTO Categorias (nombre) VALUES
@@ -202,7 +205,7 @@ INSERT INTO Categorias (nombre) VALUES
 -- Inserciones en la tabla Roles
 INSERT INTO Roles (nombre, descripcion) VALUES
 ('Administrador', 'Acceso total al sistema'),
-('Cliente', 'Puede realizar compras y dejar resenias'),
+('Cliente', 'Puede realizar compras y dejar reseñas'),
 ('Vendedor', 'Puede gestionar productos y ventas');
 
 -- Inserciones en la tabla Descuentos
@@ -212,10 +215,10 @@ INSERT INTO Descuentos (porcentaje, nombre, usuario_id) VALUES
 (5, 'Descuento de Fin de Temporada', 3);
 
 -- Inserciones en la tabla Productos
-INSERT INTO Productos (nombre, descripcion, precio, existencia, imagen_url, usuario_id, descuento_id) VALUES
-('Smartphone', 'Último modelo con pantalla AMOLED', 699.99, 50, 'img/smartphone.jpg', 1, 1),
-('Camiseta', 'Camiseta 100% algodón', 19.99, 200, 'img/camiseta.jpg', 2, NULL),
-('Sofá', 'Sofá de tres plazas', 499.99, 10, 'img/sofa.jpg', 3, 3);
+INSERT INTO Productos (nombre, descripcion, precio, existencia, imagen_url, usuario_id, descuento_id, categoria_id) VALUES
+('Smartphone', 'Último modelo con pantalla AMOLED', 699.99, 50, 'img/smartphone.jpg', 1, 1, 1),
+('Camiseta', 'Camiseta 100% algodón', 19.99, 200, 'img/camiseta.jpg', 2, NULL, 2),
+('Sofá', 'Sofá de tres plazas', 499.99, 10, 'img/sofa.jpg', 3, 3, 3);
 
 -- Inserciones en la tabla UsuariosRoles
 INSERT INTO UsuariosRoles (usuario_id, rol_id) VALUES
@@ -224,16 +227,17 @@ INSERT INTO UsuariosRoles (usuario_id, rol_id) VALUES
 (3, 3);
 
 -- Inserciones en la tabla Direcciones
-INSERT INTO Direcciones (estado, ciudad, colonia, calle, numero_domicilio, codigo_postal, telefono_contacto, usuario_id) VALUES
-('Ciudad de México', 'Benito Juárez', 'Del Valle', 'Avenida Insurgentes', 123, '03100', '5551234567', 1),
-('Jalisco', 'Guadalajara', 'Centro', 'Avenida Juárez', 456, '44100', '5557654321', 2),
-('Nuevo León', 'Monterrey', 'San Pedro', 'Avenida Real', 789, '66260', '5556781234', 3);
+INSERT INTO Direcciones (estado, ciudad, colonia, calle, numero_domicilio, codigo_postal, usuario_id) VALUES
+('Ciudad de México', 'Benito Juárez', 'Del Valle', 'Avenida Insurgentes', 123, '03100', 1),
+('Jalisco', 'Guadalajara', 'Centro', 'Avenida Juárez', 456, '44100', 2),
+('Nuevo León', 'Monterrey', 'San Pedro', 'Avenida Real', 789, '66260', 3);
 
 -- Inserciones en la tabla MetodosPago
-INSERT INTO MetodosPago (nombre_titular, numero_tarjeta, fecha_expiracion, codigo_seguridad, tipo_tarjeta, monto, usuario_id) VALUES
-('Juan Pérez', '4111111111111111', '2025-12-31', '123', 'Crédito', 1000.00, 1),
-('María Gómez', '4222222222222222', '2026-11-30', '456', 'Débito', 500.00, 2),
-('Pedro Sánchez', '4333333333333333', '2024-10-31', '789', 'Crédito', 750.00, 3);
+INSERT INTO MetodosPago (nombre_titular, numero_tarjeta, fecha_expiracion, tipo_tarjeta, monto, usuario_id) VALUES
+('Juan Pérez', '4111111111111111', '12/2025', 'Crédito', 1000.00, 1),
+('María Gómez', '4222222222222222', '11/2026', 'Débito', 500.00, 2),
+('Pedro Sánchez', '4333333333333333', '10/2024', 'Crédito', 750.00, 3);
+
 
 -- Inserciones en la tabla Facturas
 INSERT INTO Facturas (subtotal, total, porcentaje_impuestos, usuario_id, metodo_pago_id, direccion_id) VALUES
