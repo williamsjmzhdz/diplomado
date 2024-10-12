@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+    <div class="card-body">
+        <form th:action="@{/lote/salvar-lote}" th:object="${lote}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
+                Verifique los siguientes errores
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                </ul>
+            </div>
+            <div class="row gx-5">
+                <div class="col-mf-5">
+                    <div class="form-group">
+                        <label for="fecha">Fecha </label>
+                        <input type="datetime-local" class="form-control" id="fecha"
+                               name="fecha"
+                               placeholder="Fecha del lote" required
+                               th:value="${lote.fecha}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="kilos">Kilos </label>
+                        <input type="text" class="form-control" id="kilos"
+                               name="kilos"
+                               placeholder="Número de kilos" required
+                               th:value="${lote.kilos}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="num_cajas">Cajas </label>
+                        <input type="text" class="form-control" id="num_cajas"
+                               name="numeroCajas"
+                               placeholder="Número de cajas" required
+                               th:value="${lote.numeroCajas}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="kilo_salida">Precio por kilo:</label>
+                        <input type="text" class="form-control" id="kilo_salida"
+                               name="precioKiloSalida"
+                               placeholder="Precio por kilo" required
+                               pattern="^\d*(\.\d{0,2})?$"
+                               th:value="${lote.precioKiloSalida}">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br/>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>
