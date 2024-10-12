@@ -7,23 +7,30 @@
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
     <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
     <div class="card-body">
-        <form th:action="@{/tipo/salvar-tipo}" method="post">
-
+        <form th:action="@{/tipo/salvar-tipo}" th:object="${tipo}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
+                Verifique los siguientes errores
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                </ul>
+            </div>
             <div class="row gx-5">
                 <div class="col-md-5">
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre"
-                               placeholder="Nombre del tipo" required="required"
-                                th:value="${nombre}">
+                               placeholder="Nombre del tipo"
+                               th:field="*{nombre}">
                     </div>
+
                 </div>
                 <div class="col-md-3">
                     <br/>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-            </div>
 
+            </div>
+            <input type="hidden" name="id_tpo" th:value="${tipo.id_tpo}"/>
         </form>
     </div>
 
