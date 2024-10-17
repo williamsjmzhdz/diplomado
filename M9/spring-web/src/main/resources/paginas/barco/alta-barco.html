@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+    <div class="card-body">
+        <form th:action="@{/barco/salvar-barco}" th:object="${barco}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
+                Verifique los siguientes errores
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                </ul>
+            </div>
+            <div class="row gx-5">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="nombre">Nombre </label>
+                        <input type="text" class="form-control" id="nombre"
+                               name="nombre"
+                               placeholder="Nombre del barco..." required
+                               th:value="${barco.nombre}">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br/>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+            <input type="hidden" name="id_bco" th:value="${barco.id_bco}"/>
+        </form>
+    </div>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>

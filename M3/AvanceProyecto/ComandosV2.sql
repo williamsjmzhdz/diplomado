@@ -1,3 +1,6 @@
+-- Alumno: Francisco Williams Jiménez Hernández
+-- Proyecto: Bazarboost
+
 USE bazarboost;
 
 -- Eliminación de tablas en el orden adecuado (hijas primero)
@@ -22,7 +25,7 @@ CREATE TABLE Usuarios (
     apellido_materno VARCHAR(40) NOT NULL,
     telefono VARCHAR(10) NOT NULL,
     correo_electronico VARCHAR(80) NOT NULL,
-    contrasenia VARCHAR(40) NOT NULL,  
+    contrasenia VARCHAR(40) NOT NULL,
     CONSTRAINT PK_Usuarios PRIMARY KEY (usuario_id),
     CONSTRAINT UQ_Usuarios_telefono UNIQUE (telefono),
     CONSTRAINT UQ_Usuarios_correo_electronico UNIQUE (correo_electronico)
@@ -69,7 +72,7 @@ CREATE TABLE Productos (
     CONSTRAINT FK_Productos_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE CASCADE,
     CONSTRAINT FK_Productos_descuento_id FOREIGN KEY (descuento_id) REFERENCES Descuentos(descuento_id) ON DELETE SET NULL,
     CONSTRAINT FK_Productos_categoria_id FOREIGN KEY (categoria_id) REFERENCES Categorias(categoria_id) ON DELETE SET NULL,
-	 CONSTRAINT CK_Productos_precio CHECK (precio >= 0),
+    CONSTRAINT CK_Productos_precio CHECK (precio >= 0),
     CONSTRAINT CK_Productos_existencia CHECK (existencia >= 0)
 );
 
@@ -81,7 +84,7 @@ CREATE TABLE UsuariosRoles (
     CONSTRAINT PK_UsuariosRoles PRIMARY KEY (usuario_rol_id),
     CONSTRAINT UQ_UsuariosRoles_usuario_id_rol_id UNIQUE (usuario_id, rol_id),
     CONSTRAINT FK_UsuariosRoles_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE CASCADE,
-    CONSTRAINT FK_UsuariosRoles_rol_id FOREIGN KEY (rol_id) REFERENCES Roles(rol_id) ON DELETE CASCADE 
+    CONSTRAINT FK_UsuariosRoles_rol_id FOREIGN KEY (rol_id) REFERENCES Roles(rol_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Direcciones (
@@ -95,14 +98,14 @@ CREATE TABLE Direcciones (
     usuario_id INT NOT NULL,
     CONSTRAINT PK_Direcciones PRIMARY KEY (direccion_id),
     CONSTRAINT UQ_Direcciones UNIQUE (estado, ciudad, colonia, calle, numero_domicilio, codigo_postal),
-    CONSTRAINT FK_Direcciones_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE CASCADE 
+    CONSTRAINT FK_Direcciones_usuario_id FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id) ON DELETE CASCADE
 );
 
 CREATE TABLE MetodosPago (
     metodo_pago_id INT AUTO_INCREMENT,
     nombre_titular VARCHAR(120) NOT NULL,
     numero_tarjeta VARCHAR(20) NOT NULL,
-    fecha_expiracion CHAR(7) NOT NULL,
+    fecha_expiracion DATE NOT NULL,
     tipo_tarjeta ENUM('Débito', 'Crédito') NOT NULL,
     monto DECIMAL(10, 2) NOT NULL,
     usuario_id INT NOT NULL,
@@ -186,79 +189,3 @@ CREATE INDEX idx_metodospago_usuario_id ON MetodosPago(usuario_id);
 CREATE INDEX idx_direcciones_usuario_id ON Direcciones(usuario_id);
 CREATE INDEX idx_descuentos_usuario_id ON Descuentos(usuario_id);
 CREATE INDEX idx_resenias_producto_id ON Resenias(producto_id);
-
--- Inserts de datos de prueba
--- Inserts de datos de prueba
-
--- Inserciones en la tabla Usuarios
-INSERT INTO Usuarios (nombre, apellido_paterno, apellido_materno, correo_electronico, contrasenia, telefono) VALUES
-('Juan', 'Pérez', 'López', 'juan.perez@example.com', 'password123', '5551234567'),
-('María', 'Gómez', 'Martínez', 'maria.gomez@example.com', 'password123', '5557654321'),
-('Pedro', 'Sánchez', 'Hernández', 'pedro.sanchez@example.com', 'password123', '5556781234');
-
--- Inserciones en la tabla Categorias
-INSERT INTO Categorias (nombre) VALUES
-('Electrónica'),
-('Ropa'),
-('Hogar');
-
--- Inserciones en la tabla Roles
-INSERT INTO Roles (nombre, descripcion) VALUES
-('Administrador', 'Acceso total al sistema'),
-('Cliente', 'Puede realizar compras y dejar reseñas'),
-('Vendedor', 'Puede gestionar productos y ventas');
-
--- Inserciones en la tabla Descuentos
-INSERT INTO Descuentos (porcentaje, nombre, usuario_id) VALUES
-(10, 'Descuento de Bienvenida', 1),
-(15, 'Descuento de Verano', 2),
-(5, 'Descuento de Fin de Temporada', 3);
-
--- Inserciones en la tabla Productos
-INSERT INTO Productos (nombre, descripcion, precio, existencia, imagen_url, usuario_id, descuento_id, categoria_id) VALUES
-('Smartphone', 'Último modelo con pantalla AMOLED', 699.99, 50, 'img/smartphone.jpg', 1, 1, 1),
-('Camiseta', 'Camiseta 100% algodón', 19.99, 200, 'img/camiseta.jpg', 2, NULL, 2),
-('Sofá', 'Sofá de tres plazas', 499.99, 10, 'img/sofa.jpg', 3, 3, 3);
-
--- Inserciones en la tabla UsuariosRoles
-INSERT INTO UsuariosRoles (usuario_id, rol_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
-
--- Inserciones en la tabla Direcciones
-INSERT INTO Direcciones (estado, ciudad, colonia, calle, numero_domicilio, codigo_postal, usuario_id) VALUES
-('Ciudad de México', 'Benito Juárez', 'Del Valle', 'Avenida Insurgentes', 123, '03100', 1),
-('Jalisco', 'Guadalajara', 'Centro', 'Avenida Juárez', 456, '44100', 2),
-('Nuevo León', 'Monterrey', 'San Pedro', 'Avenida Real', 789, '66260', 3);
-
--- Inserciones en la tabla MetodosPago
-INSERT INTO MetodosPago (nombre_titular, numero_tarjeta, fecha_expiracion, tipo_tarjeta, monto, usuario_id) VALUES
-('Juan Pérez', '4111111111111111', '12/2025', 'Crédito', 1000.00, 1),
-('María Gómez', '4222222222222222', '11/2026', 'Débito', 500.00, 2),
-('Pedro Sánchez', '4333333333333333', '10/2024', 'Crédito', 750.00, 3);
-
-
--- Inserciones en la tabla Facturas
-INSERT INTO Facturas (subtotal, total, porcentaje_impuestos, usuario_id, metodo_pago_id, direccion_id) VALUES
-(150.00, 165.00, 10, 1, 1, 1),
-(300.00, 330.00, 10, 2, 2, 2),
-(450.00, 495.00, 10, 3, 3, 3);
-
--- Inserciones en la tabla Resenias
-INSERT INTO Resenias (comentario, calificacion, usuario_id, producto_id) VALUES
-('Excelente producto', 5, 1, 1),
-('Buena calidad', 4, 2, 2),
-('Cómodo y práctico', 4, 3, 3);
-
--- Inserciones en la tabla ProductosCarrito
-INSERT INTO ProductosCarrito (cantidad, total, usuario_id, producto_id) VALUES
-(2, 39.98, 1, 2),
-(1, 699.99, 2, 1),
-(1, 499.99, 3, 3);
-
--- Inserciones en la tabla ProductosFacturas
-INSERT INTO ProductosFacturas (cantidad, total, factura_id, producto_id) VALUES
-(1, 699.99, 1, 1),
-(2, 39.98, 2, 2),
-(1, 499.99, 3, 3);
