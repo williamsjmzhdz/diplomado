@@ -141,8 +141,8 @@ public class EspecieController {
         EspecieEntity esp = (EspecieEntity) sesion.getAttribute("especie");
         System.out.println(esp.getImagen() + "<----");
         List<EspecieEntity> lista = especieService.buscarEspecie(esp.getId_epe());
-        String gmail = "";
-        String pswd = "";
+        String gmail = "williamsjmzhdz@gmail.com";
+        String pswd = "wqvq wzbu uscp ecuk";
         Properties p = System.getProperties();
         p.setProperty("mail.smtps.host", "smpt.gmail.com");
         p.setProperty("mail.smtps.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -177,7 +177,7 @@ public class EspecieController {
             multiple.addBodyPart(adjunto);
 
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(" ", false));
+                    InternetAddress.parse("williamsjmzhdz@gmail.com", false));
             message.setSubject("Especie Registrada en B.D");
             message.setContent(multiple);
             message.setSentDate(new Date());

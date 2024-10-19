@@ -51,8 +51,9 @@ public class BarcoServiceImpl implements BarcoService{
         return null;
     }
 
+    /*
     @Override
     public List<BarcoEntity> buscarBarco() {
         return barcoRepository.findAll();
-    }
+    }*/
 }
