@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+    <div class="card-body">
+        <form th:action="@{/comprador/salvar-comprador}" th:object="${comprador}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
+                Verifique los siguientes errores
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                </ul>
+            </div>
+            <div class="row gx-5">
+                <div class="col-mf-5">
+                    <div class="form-group">
+                        <label for="nombre">Nombre </label>
+                        <input type="text" class="form-control" id="nombre"
+                               name="nombre"
+                               placeholder="Nombre..." required
+                               th:value="${comprador.nombre}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="apellido_paterno">Apellido paterno </label>
+                        <input type="text" class="form-control" id="apellido_paterno"
+                               name="apellido_paterno"
+                               placeholder="Apellido paterno..." required
+                               th:value="${comprador.apellido_paterno}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="apellido_materno">Apellido materno </label>
+                        <input type="text" class="form-control" id="apellido_materno"
+                               name="apellido_materno"
+                               placeholder="Apellido materno..." required
+                               th:value="${comprador.apellido_materno}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="direccion">Dirección </label>
+                        <input type="text" class="form-control" id="direccion"
+                               name="direccion"
+                               placeholder="Dirección..." required
+                               th:value="${comprador.direccion}">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="correo">Correo </label>
+                        <input type="text" class="form-control" id="correo"
+                               name="correo"
+                               placeholder="Correo..." required
+                               th:value="${comprador.correo}">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br/>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+            <input type="hidden" name="codigo_cpr" th:value="${comprador.codigo_cpr}"/>
+        </form>
+    </div>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+</body>
+</html>

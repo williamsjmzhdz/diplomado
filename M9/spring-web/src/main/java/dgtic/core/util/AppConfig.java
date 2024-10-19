@@ -6,7 +6,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
 public class AppConfig {
-
     @Bean
     public ResourceBundleMessageSource messageSource(){
         var source=new ResourceBundleMessageSource();
@@ -14,5 +13,4 @@ public class AppConfig {
         source.setUseCodeAsDefaultMessage(true);
         return source;
     }
-
 }

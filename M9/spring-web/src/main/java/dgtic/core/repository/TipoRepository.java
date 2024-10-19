@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TipoRepository extends JpaRepository<TipoEntity, Integer> {
-
     @Query("select c from tipo c where c.nombre like %?1%")
     public List<TipoEntity> findByNombre(String dato);
-
 }

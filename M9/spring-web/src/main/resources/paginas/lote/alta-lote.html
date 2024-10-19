@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
@@ -26,28 +27,25 @@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="kilos">Kilos </label>
-                        <input type="text" class="form-control" id="kilos"
-                               name="kilos"
-                               placeholder="Número de kilos" required
+                        <label for="kilos">Kilos:</label>
+                        <input type="text" class="form-control" id="kilos" name="kilos"
+                               placeholder="Número de kilos" required="required"
                                th:value="${lote.kilos}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="num_cajas">Cajas </label>
-                        <input type="text" class="form-control" id="num_cajas"
-                               name="numeroCajas"
-                               placeholder="Número de cajas" required
+                        <label for="num_cajas">Cajas:</label>
+                        <input type="text" class="form-control" id="num_cajas" name="numeroCajas"
+                               placeholder="Número de Cajas" required="required"
                                th:value="${lote.numeroCajas}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="kilo_salida">Precio por kilo:</label>
-                        <input type="text" class="form-control" id="kilo_salida"
-                               name="precioKiloSalida"
-                               placeholder="Precio por kilo" required
+                        <label for="kilo_salida">Precio por Kilo:</label>
+                        <input type="text" class="form-control" id="kilo_salida" name="precioKiloSalida"
+                               placeholder="Precio por Kilo formato 234.35" required="required"
                                pattern="^\d*(\.\d{0,2})?$"
                                th:value="${lote.precioKiloSalida}">
                     </div>
@@ -60,7 +58,6 @@
             <input type="hidden" name="id_lte" th:value="${lote.id_lte}"/>
         </form>
     </div>
-
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

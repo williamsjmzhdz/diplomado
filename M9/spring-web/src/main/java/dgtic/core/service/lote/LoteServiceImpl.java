@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,9 +35,14 @@ public class LoteServiceImpl implements LoteService {
     }
 
     @Override
-    @Transactional
-    public LoteEntity buscarPorId(Integer id) {
+    @Transactional(readOnly = true)
+    public LoteEntity buscarLoteId(Integer id) {
         Optional<LoteEntity> op = loteRepository.findById(id);
         return op.orElse(null);
+    }
+
+    @Override
+    public List<LoteEntity> lotes() {
+        return loteRepository.findAll();
     }
 }

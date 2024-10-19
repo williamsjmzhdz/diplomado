@@ -1,6 +1,5 @@
 package dgtic.core.converter;
 
-
 import java.beans.PropertyEditorSupport;
 
 public class MayusculasConverter extends PropertyEditorSupport {

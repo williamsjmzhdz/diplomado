@@ -3,7 +3,6 @@ package dgtic.core.controller.barco;
 import dgtic.core.model.entities.BarcoEntity;
 import dgtic.core.model.entities.CaladeroEntity;
 import dgtic.core.service.barco.BarcoService;
-import dgtic.core.service.caladero.CaladeroService;
 import dgtic.core.util.RenderPagina;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,77 +16,60 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value = "barco")
+@RequestMapping("barco")
 public class BarcoController {
-
     @Autowired
-    private BarcoService barcoService;
-
-    @GetMapping("lista-barco")
-    public String listaBarco(@RequestParam(name = "page", defaultValue = "0") Integer page, Model model) {
-        Pageable pageable = PageRequest.of(page, 2);
-        Page<BarcoEntity> barcoEntities = barcoService.buscarBarco(pageable);
-        RenderPagina<BarcoEntity> renderPagina = new RenderPagina<>("lista-barco", barcoEntities);
-
-        // Agregar datos al modelo
-        model.addAttribute("barco", barcoEntities);
-        model.addAttribute("page", renderPagina);
-        model.addAttribute("contenido", "Lista de Barcos");
-
-        return "barco/lista-barco";
-    }
+    BarcoService barcoService;
 
     @GetMapping("alta-barco")
-    public String altaBarco(Model model) {
+    public String altaCaladero(Model model) {
         BarcoEntity barco = new BarcoEntity();
         model.addAttribute("contenido", "Alta de Barco");
         model.addAttribute("barco", barco);
+
         return "barco/alta-barco";
     }
 
     @PostMapping("salvar-barco")
-    public String salvarBarco(@Valid @ModelAttribute("barco") BarcoEntity barco,
-                                 BindingResult result,
-                                 Model model,
-                                 RedirectAttributes flash) {
-
-        // Verificar si hay errores de validación
-        if (result.hasErrors()) {
-            model.addAttribute("contenido", "Errores de validación de datos detectados");
-            return "barco/alta-barco";  // Volver a la misma vista en caso de error
+    public String salvarBarco(@Valid @ModelAttribute("barco")BarcoEntity barco
+            , BindingResult result, Model model,
+                                 RedirectAttributes flash){
+        System.out.println(barco);
+        if(result.hasErrors()){
+            model.addAttribute("contenido","Error en el nombre, no debe ser vacío");
+            return "barco/alta-barco";
         }
-
-        // Guardar el barco
         barcoService.guardar(barco);
-        flash.addFlashAttribute("success","Se almacenó con éxito.");
+        //model.addAttribute("success","Se almaceno lote con éxito");
+        //model.addAttribute("lote",lote);
+        flash.addFlashAttribute("success","Se almaceno Barco con éxito");
+//        return "lote/alta-lote";
+        return "redirect:/barco/lista-barco";
+    }
 
-        // Redirigir a la lista de barcos
+    @GetMapping("lista-barco")
+    public String listaBarco(@RequestParam(name = "page", defaultValue = "0")int page, Model model){
+        Pageable pageable = PageRequest.of(page,2);
+        Page<BarcoEntity> barcoEntities = barcoService.buscarBarco(pageable);
+        RenderPagina<BarcoEntity> renderPagina = new RenderPagina<>("lista-barco", barcoEntities);
+        model.addAttribute("barco", barcoEntities);
+        model.addAttribute("page",renderPagina);
+        model.addAttribute("contenido","Lista de Barcos");
+        return "barco/lista-barco";
+    }
+
+    @GetMapping("eliminar-barco/{id}")
+    public String eliminarBarco(@PathVariable("id")Integer id,RedirectAttributes flash){
+        barcoService.borrar(id);
+        flash.addFlashAttribute("success","Se borro con exito Barco");
         return "redirect:/barco/lista-barco";
     }
 
     @GetMapping("modificar-barco/{id}")
-    public String saltoModificar(@PathVariable("id") Integer id, Model model) {
-        BarcoEntity barco = barcoService.buscarPorId(id);
-
-        // Verificar si el barco existe
-        if (barco != null) {
-            model.addAttribute("barco", barco);
-            model.addAttribute("contenido", "Modificar Barco");
-            return "barco/alta-barco";
-        }
-
-        // Redirigir a la lista si el barco no existe
-        return "redirect:/barco/lista-barco";
+    public String saltoModificar(@PathVariable("id")Integer id, Model model){
+        BarcoEntity barco = barcoService.buscarBarcoId(id);
+        model.addAttribute("barco",barco);
+        model.addAttribute("contenido","Modificar Barco");
+        return "barco/alta-barco";
     }
-
-
-    @GetMapping("eliminar-barco/{id}")
-    public String eliminar(@PathVariable("id") Integer id, RedirectAttributes flash) {
-        barcoService.borrar(id);
-        flash.addFlashAttribute("success", "Se borró con éxito el barco");
-        return "redirect:/barco/lista-barco";
-    }
-
-
-
 }

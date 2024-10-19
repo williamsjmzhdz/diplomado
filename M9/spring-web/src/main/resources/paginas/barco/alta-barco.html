@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
@@ -15,15 +16,16 @@
                 </ul>
             </div>
             <div class="row gx-5">
-                <div class="col-md-5">
+                <div class="col-mf-5">
                     <div class="form-group">
-                        <label for="nombre">Nombre </label>
-                        <input type="text" class="form-control" id="nombre"
-                               name="nombre"
-                               placeholder="Nombre del barco..." required
+                        <label for="nombre">Nombre del Barco </label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                               placeholder="Nombre del Barco" required
                                th:value="${barco.nombre}">
                     </div>
                 </div>
+
+
                 <div class="col-md-3">
                     <br/>
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -32,7 +34,6 @@
             <input type="hidden" name="id_bco" th:value="${barco.id_bco}"/>
         </form>
     </div>
-
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

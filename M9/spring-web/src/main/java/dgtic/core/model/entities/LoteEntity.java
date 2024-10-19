@@ -1,18 +1,14 @@
 package dgtic.core.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity(name = "lote")
 @Data
@@ -29,7 +25,7 @@ public class LoteEntity {
     private LocalDateTime fecha;
 
     @Column(name = "kilos")
-    @Min(1)
+    @Min(value = 1,message = "El valor tiene que ser mayor a 0")
     private int kilos;
 
     @Column(name = "numero_cajas")
@@ -40,4 +36,12 @@ public class LoteEntity {
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal precioKiloSalida;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "lote",
+            fetch = FetchType.EAGER
+    )
+    private Set<EspecieEntity> especie;
 }
