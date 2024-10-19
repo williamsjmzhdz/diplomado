@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-    <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
-
+    <h1 th:text="${contenido}"></h1>
     <div class="col-md-9">
         <div class="form-floating">
             <form th:action="@{/especie/salvar-imagen}" method="post" enctype="multipart/form-data">
@@ -20,7 +20,6 @@
             </form>
         </div>
     </div>
-
     <form th:action="@{/especie/salvar-especie}" th:object="${especie}" method="post">
         <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
             Verifique los siguientes errores
@@ -37,28 +36,29 @@
                            th:field="*{nombre}">
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="lote">Lotes Disponibles</label>
-                <select class="form-control" th:field="*{lote}" id="lote" name="lote" required>
-                    <option th:each="sel : ${selectLote}" th:value="${sel.id_lte}" th:text="'Lote: '+${sel.id_lte} +' Fecha: '+${sel.fecha} +' Precio: '+${sel.precioKiloSalida}"/>
-                </select>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="lote">Lotes Disponibles</label>
+                    <select class="form-control" th:field="*{lote}" id="lote" name="lote" required>
+                        <option th:each="sel : ${selectLote}" th:value="${sel.id_lte}" th:text="'Lote: '+${sel.id_lte} +' Fecha: '+${sel.fecha} +' Precio: '+${sel.precioKiloSalida}"/>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="tipo">Tipos</label>
-                <select class="form-control" th:field="*{tipo}" id="tipo" name="tipo" required>
-                    <option th:each="sel : ${selectTipo}" th:value="${sel.id_tpo}" th:text="${sel.nombre}"/>
-                </select>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="tipo">Tipos</label>
+                    <select class="form-control" th:field="*{tipo}" id="tipo" name="tipo" required>
+                        <option th:each="sel : ${selectTipo}" th:value="${sel.id_tpo}" th:text="${sel.nombre}"/>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <br/>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="col-md-3">
+                <br/>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
         </div>
     </form>
+
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

@@ -9,15 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CompraServiceImplTest {
-
     @Autowired
-    private CompraService compraService;
+    CompraService compraService;
 
     @Test
-    void recupera() {
-        CompraEntity compra = compraService.buscarCompraId(1);
+    void recupera(){
+        CompraEntity compra=compraService.buscarCompraId(1);
         System.out.println(compra.getComprador().getNombre());
-        System.out.println(compra.getLote().getEspecie().iterator().next().getImagen());
+        System.out.println(compra.getLote().getEspecie().stream().iterator().next().getNombre());
+        System.out.println(compra.getLote().getEspecie().stream().iterator().next().getTipo().getNombre());
     }
-
 }

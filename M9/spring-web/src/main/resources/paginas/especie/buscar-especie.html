@@ -3,53 +3,52 @@
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
 <body>
-<header th:replace="~{plantillas/plantilla :: header}"></header>
-<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-  <h1 th:text="${contenido}"></h1>
-  <div class="card">
-    <h4 class="card-header"><strong>Nombre de la especie</strong></h4>
-    <div class="card-body">
-      <form th:action="@{/especie/buscar-especie}" th:object=${especie} method="post">
-        <div class="row">
-          <div class="col-md-5">
-            <div class="form-group">
-              <label for="nombre">Nombre de la Especie</label>
-              <input type="text" class="form-control" id="nombre" name="nombre"
-                     placeholder="Nombre de la especie" required="required"
-                     th:field="*{nombre}">
+    <header th:replace="~{plantillas/plantilla :: header}"></header>
+    <main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <h1 th:text="${contenido}"></h1>
+        <div class="card">
+            <h4 class="card-header"><strong>Nombre de la especie</strong></h4>
+            <div class="card-body">
+                <form th:action="@{/especie/buscar-especie}" th:object=${especie} method="post">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="nombre">Nombre de la Especie</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                       placeholder="Nombre de la especie" required="required"
+                                       th:field="*{nombre}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <br/>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idEspecie" name="idEspecie" th:field="*{id_epe}" />
+                </form>
+                <a th:if="${datos.size()>0}" class="btn btn-primary btn-xs float-right" th:href="@{'/especie/pdf'(format=pdf)}"
+                   target="_blank">Pdf</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <a th:if="${datos.size()>0}" class="btn btn-primary btn-xs float-right" th:href="@{/especie/correo}" >Mandar al Correo</a>
+                <table th:if="${datos.size()>0}" class="table table-striped table-hover table-sm">
+                    <thead class="table-dark table-bordered">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Imagen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="esp: ${datos}">
+                        <td th:text="${esp.nombre}"></td>
+                        <td>
+                            <img th:src="@{'/imagenes/'+${esp.imagen}}" width="20%" height="20%"><br/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-          </div>
-          <div class="col-md-3">
-            <br/>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-          </div>
         </div>
-        <input type="hidden" id="idEspecie" name="idEspecie" th:field="*{id_epe}" />
-      </form>
-      <a th:if="${datos.size()>0}" class="btn btn-primary btn-xs float-right" th:href="@{'/especie/pdf'(format=pdf)}"
-         target="_blank">Pdf</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      <a th:if="${datos.size()>0}" class="btn btn-primary btn-xs float-right" th:href="@{/especie/correo}" >Mandar al Correo</a>
-      <table th:if="${datos.size()>0}" class="table table-striped table-hover table-sm">
-        <thead class="table-dark table-bordered">
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Imagen</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="esp: ${datos}">
-          <td th:text="${esp.nombre}"></td>
-          <td>
-            <img th:src="@{'/imagenes/'+${esp.imagen}}" width="20%" height="20%"><br/>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</main>
-<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
-<script th:src="@{/paginas/especie/js/autocompletar.js}"></script>
-
+    </main>
+    <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+    <script th:replace="~{especie/js/autocompletar :: jsespecie}"></script>
 </body>
 </html>

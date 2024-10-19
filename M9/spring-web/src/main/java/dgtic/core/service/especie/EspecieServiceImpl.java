@@ -15,9 +15,8 @@ import java.util.Optional;
 
 @Service
 public class EspecieServiceImpl implements EspecieService{
-
     @Autowired
-    private EspecieRepository especieRepository;
+    EspecieRepository especieRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -25,12 +24,12 @@ public class EspecieServiceImpl implements EspecieService{
         return especieRepository.findAll(pageable);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public List<EspecieEntity> buscarEspecie() {
         return especieRepository.findAll();
     }
+
 
     @Override
     @Transactional
@@ -41,14 +40,14 @@ public class EspecieServiceImpl implements EspecieService{
     @Override
     @Transactional
     public void borrar(Integer id) {
-        especieRepository.deleteById(id);
+    especieRepository.deleteById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EspecieEntity buscarEspecieId(Integer id) {
-        Optional<EspecieEntity> optional = especieRepository.findById(id);
-        return optional.orElse(null);
+        Optional<EspecieEntity> op =especieRepository.findById(id);
+        return op.orElse(null);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class EspecieServiceImpl implements EspecieService{
 
     @Override
     public List<LoteEntity> especieSinLote() {
-        return List.of();
+        return null;
     }
 
     @Override

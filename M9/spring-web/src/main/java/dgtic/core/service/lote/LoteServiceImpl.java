@@ -35,8 +35,8 @@ public class LoteServiceImpl implements LoteService {
     }
 
     @Override
-    @Transactional
-    public LoteEntity buscarPorId(Integer id) {
+    @Transactional(readOnly = true)
+    public LoteEntity buscarLoteId(Integer id) {
         Optional<LoteEntity> op = loteRepository.findById(id);
         return op.orElse(null);
     }

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Digits;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -47,4 +48,5 @@ public class CompraEntity {
     @ManyToOne
     @JoinColumn(name = "codigo_cpr")
     private CompradorEntity comprador;
+
 }

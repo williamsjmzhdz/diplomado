@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Controller
-@RequestMapping(value = "/especie")
+@RequestMapping(value = "especie")
 @SessionAttributes("especie")
 public class EspecieController {
     @Value("${ejemplo.imagen.ruta}")
@@ -40,12 +40,14 @@ public class EspecieController {
 
     @Autowired
     LoteService loteService;
+
     @Autowired
     TipoService tipoService;
+
     @Autowired
     EspecieService especieService;
 
-    @GetMapping("/alta-especie")
+    @GetMapping("alta-especie")
     public String verEspecie(Model model){
         EspecieEntity especie = new EspecieEntity();
         List<LoteEntity> selectLote = loteService.lotes();
@@ -57,11 +59,14 @@ public class EspecieController {
         model.addAttribute("selectTipo", selectTipo);
 
         return "especie/alta-especie";
+
+
     }
 
     @PostMapping(value = "salvar-especie")
     public String guardarEspecie(@Valid @ModelAttribute("especie") EspecieEntity especie,
-                                 BindingResult result, Model model, RedirectAttributes flash,
+                                 BindingResult result,
+                                 Model model, RedirectAttributes flash,
                                  SessionStatus sesion){
         List<LoteEntity> selectLote = loteService.lotes();
         List<TipoEntity> selectTipo = tipoService.tipos();
@@ -71,18 +76,16 @@ public class EspecieController {
             model.addAttribute("contenido", "Error en la entra de datos");
             return "especie/alta-especie";
         }
-        if(especie.getImagen() != null){
+        if(especie.getImagen()!=null){
             especieService.guardar(especie);
+            sesion.setComplete();
+            model.addAttribute("success","Almacenamiento correcto");
         }
-        sesion.setComplete();
-
-        model.addAttribute("success", "Se almacenó con éxito a " + especie);
-        especieService.guardar(especie);
         return "especie/alta-especie";
     }
 
     @PostMapping(value = "salvar-imagen")
-    public String guardarImagen(@RequestParam("imagenarchivo") MultipartFile multipartFile,
+    public String guardarImagen(@RequestParam("imagenarchivo")MultipartFile multipartFile,
                                 HttpSession session, Model model){
         EspecieEntity especie = new EspecieEntity();
         if (!multipartFile.isEmpty()) {
@@ -128,14 +131,6 @@ public class EspecieController {
         return "especie/buscar-especie";
     }
 
-    @GetMapping("eliminar-especie/{id}")
-    public String saltoEliminar(@PathVariable("id") Integer id, Model model,
-                                RedirectAttributes flash) {
-        especieService.borrar(id);
-        flash.addFlashAttribute("success", "Se borro la Especie de Peces");
-        return "redirect:/especie/lista-especie";
-    }
-
     @GetMapping(value = "buscar-especie-nombre/{dato}", produces = "application/json")
     public @ResponseBody List<EspecieEntity> buscarEspecie(@PathVariable String dato) {
         return especieService.buscarEspeciePatron(dato);
@@ -146,8 +141,8 @@ public class EspecieController {
         EspecieEntity esp = (EspecieEntity) sesion.getAttribute("especie");
         System.out.println(esp.getImagen() + "<----");
         List<EspecieEntity> lista = especieService.buscarEspecie(esp.getId_epe());
-        String gmail = "williamsjmzhdz@gmail.com";
-        String pswd = "wqex sujv xzui qokm";
+        String gmail = "";
+        String pswd = "";
         Properties p = System.getProperties();
         p.setProperty("mail.smtps.host", "smpt.gmail.com");
         p.setProperty("mail.smtps.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -158,12 +153,14 @@ public class EspecieController {
         p.setProperty("mail.smtp.ssl.trust", "smtp.gmail.com");
         p.setProperty("mail.smtps.ssl.trust", "smtp.gmail.com");
         p.setProperty("mail.smtp.ssl.quitwait", "false");
+
         String cadena = "<h2>Nombre de la especie</br>";
         for (EspecieEntity s : lista) {
             cadena += "<h2>" +
                     s.getNombre() +
                     "</h2></br>";
         }
+
         try {
             Session session = Session.getInstance(p, null);
             MimeMessage message = new MimeMessage(session);
@@ -180,7 +177,7 @@ public class EspecieController {
             multiple.addBodyPart(adjunto);
 
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("desarrollo.spring.mas@gmail.com", false));
+                    InternetAddress.parse(" ", false));
             message.setSubject("Especie Registrada en B.D");
             message.setContent(multiple);
             message.setSentDate(new Date());
@@ -197,4 +194,5 @@ public class EspecieController {
         model.addAttribute("ruta", archivoRuta);
         return "especie/buscar-especie";
     }
+
 }

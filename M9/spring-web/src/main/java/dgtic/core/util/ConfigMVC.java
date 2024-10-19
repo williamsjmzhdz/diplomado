@@ -12,7 +12,6 @@ import java.util.Locale;
 
 @Configuration
 public class ConfigMVC implements WebMvcConfigurer {
-
     @Bean
     public LocaleResolver localeResolver(){
         SessionLocaleResolver localeResolver=new SessionLocaleResolver();
@@ -34,5 +33,4 @@ public class ConfigMVC implements WebMvcConfigurer {
         registry.addResourceHandler("/imagenes/**")
                 .addResourceLocations("file:/C://imagenes//");
     }
-
 }

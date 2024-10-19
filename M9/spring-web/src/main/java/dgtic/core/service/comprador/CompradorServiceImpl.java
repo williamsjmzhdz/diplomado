@@ -12,13 +12,12 @@ import java.util.Optional;
 
 @Service
 public class CompradorServiceImpl implements CompradorService {
-
     @Autowired
-    private CompradorRepository compradorRepository;
+    CompradorRepository compradorRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CompradorEntity> buscarComprador(Pageable pageable) {
+    public Page<CompradorEntity> buscarcomprador(Pageable pageable) {
         return compradorRepository.findAll(pageable);
     }
 
@@ -35,9 +34,9 @@ public class CompradorServiceImpl implements CompradorService {
     }
 
     @Override
-    @Transactional
-    public CompradorEntity buscarPorId(Integer id) {
-        Optional<CompradorEntity> optional = compradorRepository.findById(id);
+    @Transactional(readOnly = true)
+    public CompradorEntity buscarCompradorId(Integer id) {
+        Optional<CompradorEntity> optional= compradorRepository.findById(id);
         return optional.orElse(null);
     }
 }

@@ -14,44 +14,41 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class CapturaServiceImplTest {
+    @Autowired
+    CapturaService capturaService;
+    @Autowired
+    EspecieService especieService;
 
     @Autowired
-    private CapturaService capturaService;
-
+    CaladeroService caladeroService;
     @Autowired
-    private EspecieService especieService;
+    BarcoService barcoService;
 
-    @Autowired
-    private CaladeroService caladeroService;
-
-    @Autowired
-    private BarcoService barcoService;
 
     @Test
     void grabar() {
-        List<EspecieEntity> listaEspecie = especieService.buscarEspecie();
+        List<EspecieEntity> listaEspecie=especieService.buscarEspecie();
         System.out.println(listaEspecie);
-        List<BarcoEntity> listaBarco = barcoService.buscarBarco();
+        List<BarcoEntity> listaBarco=barcoService.buscarBarco();
         System.out.println(listaBarco);
-        List<CaladeroEntity> listaCaladero = caladeroService.buscarCaladero();
+        List<CaladeroEntity> listaCaladero=caladeroService.buscarCaladero();
         System.out.println(listaCaladero);
 
-        EspecieEntity especie = especieService.buscarEspecieId(1);
-        BarcoEntity barco = barcoService.buscarPorId(2);
-        CaladeroEntity caladero = caladeroService.buscarPorId(3);
+        EspecieEntity especie=especieService.buscarEspecieId(1);
+        BarcoEntity barco=barcoService.buscarBarcoId(2);
+        CaladeroEntity caledero=caladeroService.buscarCaladeroId(2);
         LocalDateTime tiempo= LocalDateTime.of(LocalDate.now(), LocalTime.now());
-
-        CapturaEntity captura = CapturaEntity.builder()
+        CapturaEntity captura=CapturaEntity.builder()
                 .peso(BigDecimal.valueOf(34.45))
                 .fecha(tiempo)
                 .especie(especie)
                 .barco(barco)
-                .caladero(caladero)
+                .caladero(caledero)
                 .build();
-
         capturaService.guardar(captura);
     }
-
 }

@@ -1,11 +1,9 @@
 package dgtic.core.validation;
 
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class NoEspacioNoVacioValidator implements ConstraintValidator<NoEspacioNoVacio,String> {
-
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
         if(s==null
@@ -13,6 +11,5 @@ public class NoEspacioNoVacioValidator implements ConstraintValidator<NoEspacioN
                 || s.isEmpty()){
             return false;
         }
-        return true;
-    }
+        return true;    }
 }

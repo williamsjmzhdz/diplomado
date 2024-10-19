@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface EspecieRepository extends JpaRepository<EspecieEntity, Integer> {
+
     @Query("select c from especie c where c.nombre like %?1%")
     public List<EspecieEntity> findByNombre(String dato);
     @Query(value="SELECT a FROM lote a WHERE a.id_lte NOT IN(SELECT d.lote.id_lte FROM especie d)")

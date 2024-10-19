@@ -1,14 +1,13 @@
 package dgtic.core.service.comprador;
 
 import dgtic.core.model.entities.CompradorEntity;
+import dgtic.core.model.entities.LoteEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CompradorService {
-
-    Page<CompradorEntity> buscarComprador(Pageable pageable);
+    Page<CompradorEntity> buscarcomprador(Pageable pageable);
     void guardar(CompradorEntity compradorEntity);
     void borrar(Integer id);
-    CompradorEntity buscarPorId(Integer id);
-
+    CompradorEntity buscarCompradorId(Integer id);
 }

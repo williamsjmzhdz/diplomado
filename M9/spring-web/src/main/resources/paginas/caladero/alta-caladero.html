@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
@@ -15,25 +16,23 @@
                 </ul>
             </div>
             <div class="row gx-5">
-                <div class="col-mf-5">
+                <div class="col-md-5">
                     <div class="form-group">
-                        <label for="ubicacion">Ubicación </label>
-                        <input type="text" class="form-control" id="ubicacion"
-                               name="ubicacion"
-                               placeholder="Ubicación..." required
+                        <label for="ubicacion">Ubicacion </label>
+                        <input type="text" class="form-control" id="ubicacion" name="ubicacion"
+                               placeholder="Ubicacion del Caladero" required
                                th:value="${caladero.ubicacion}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="extension">Extension </label>
-                        <input type="text" class="form-control" id="extension"
-                               name="extension"
-                               placeholder="Extension..." required
-                               pattern="^\d*(\.\d{0,2})?$"
+                        <label for="extension_entrada">Extension:</label>
+                        <input type="text" class="form-control" id="extension_entrada" name="extension"
+                               placeholder="Extencion del Caladero" required="required"
                                th:value="${caladero.extension}">
                     </div>
                 </div>
+
                 <div class="col-md-3">
                     <br/>
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -42,7 +41,6 @@
             <input type="hidden" name="id_clo" th:value="${caladero.id_clo}"/>
         </form>
     </div>
-
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

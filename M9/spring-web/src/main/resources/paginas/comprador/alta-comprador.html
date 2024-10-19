@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
@@ -15,48 +16,44 @@
                 </ul>
             </div>
             <div class="row gx-5">
-                <div class="col-mf-5">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="nombre">Nombre </label>
                         <input type="text" class="form-control" id="nombre"
                                name="nombre"
-                               placeholder="Nombre..." required
+                               placeholder="Nombre del comprador" required
                                th:value="${comprador.nombre}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="apellido_paterno">Apellido paterno </label>
-                        <input type="text" class="form-control" id="apellido_paterno"
-                               name="apellido_paterno"
-                               placeholder="Apellido paterno..." required
-                               th:value="${comprador.apellido_paterno}">
+                        <label for="apellidoPaterno">Apellido Paterno:</label>
+                        <input type="text" class="form-control" id="apellidoPaterno" name="apellidoPaterno"
+                               placeholder="Apellido paterno" required="required"
+                               th:value="${comprador.apellidoPaterno}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="apellido_materno">Apellido materno </label>
-                        <input type="text" class="form-control" id="apellido_materno"
-                               name="apellido_materno"
-                               placeholder="Apellido materno..." required
-                               th:value="${comprador.apellido_materno}">
+                        <label for="apellido_Materno">Apellido Materno:</label>
+                        <input type="text" class="form-control" id="apellido_Materno" name="apellidoMaterno"
+                               placeholder="Apellido materno" required="required"
+                               th:value="${comprador.apellidoMaterno}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="direccion">Dirección </label>
-                        <input type="text" class="form-control" id="direccion"
-                               name="direccion"
-                               placeholder="Dirección..." required
+                        <label for="direccion_salida">Direccion:</label>
+                        <input type="text" class="form-control" id="direccion_salida" name="direccion"
+                               placeholder="direccion" required="required"
                                th:value="${comprador.direccion}">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="correo">Correo </label>
-                        <input type="text" class="form-control" id="correo"
-                               name="correo"
-                               placeholder="Correo..." required
+                        <label for="correo_salida">Correo electronico:</label>
+                        <input type="text" class="form-control" id="correo_salida" name="correo"
+                               placeholder="Correo electronico" required="required"
                                th:value="${comprador.correo}">
                     </div>
                 </div>
@@ -68,7 +65,6 @@
             <input type="hidden" name="codigo_cpr" th:value="${comprador.codigo_cpr}"/>
         </form>
     </div>
-
 </main>
 <footer th:replace="~{plantillas/plantilla :: footer}"></footer>
 </body>

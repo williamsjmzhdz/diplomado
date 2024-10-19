@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es">
 <head th:replace="~{plantillas/plantilla :: head}"></head>
+
 <body>
 <header th:replace="~{plantillas/plantilla :: header}"></header>
 <main class="container text-center opacity-75 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
@@ -9,33 +10,33 @@
     <table th:if="${!comprador.isEmpty()}" class="table table-striped table-hover table-sm">
         <thead class="table-dark table-bordered">
         <tr>
-            <th scope="col">Identificador</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido paterno</th>
-            <th scope="col">Apellido materno</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Operaciones</th>
+            <th scope="col"> Identificador</th>
+            <th scope="col"> Nombre</th>
+            <th scope="col"> Apellido Paterno</th>
+            <th scope="col"> Apellido Materno</th>
+            <th scope="col"> Direccion</th>
+            <th scope="col"> Correo electronico</th>
+            <th scope="col"> Operaciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cpr : ${comprador}">
-            <td th:text="${cpr.codigo_cpr}"></td>
-            <td th:text="${cpr.nombre}"></td>
-            <td th:text="${cpr.apellido_paterno}"></td>
-            <td th:text="${cpr.apellido_materno}"></td>
-            <td th:text="${cpr.direccion}"></td>
-            <td th:text="${cpr.correo}"></td>
+        <tr th:each="compr: ${comprador}">
+            <td th:text="${compr.codigo_cpr}"></td>
+            <td th:text="${compr.nombre}"></td>
+            <td th:text="${compr.apellidoPaterno}"></td>
+            <td th:text="${compr.apellidoMaterno}"></td>
+            <td th:text="${compr.direccion}"></td>
+            <td th:text="${compr.correo}"></td>
             <td>
-                <a th:href="@{/comprador/modificar-comprador/{id} (id=${cpr.codigo_cpr})}" class="btn btn-success">
-                    Modificar <i class="fas fa-pen-nib" aria-hidden="true"></i>
-                </a>
-                <a th:href="@{/comprador/eliminar-comprador/{id} (id=${cpr.codigo_cpr})}" class="btn btn-danger">
-                    Eliminar <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                </a>
+                <a th:href="@{/comprador/modificar-comprador/{id} (id=${compr.codigo_cpr})}"
+                   class="btn btn-success">Modificar <i class="fas fa-pen-nib"
+                                                        aria-hidden="true"></i> </a>
+                <a th:href="@{/comprador/eliminar-comprador/{id} (id=${compr.codigo_cpr})}"
+                   class="btn btn-danger">Eliminar <i class="fas fa-trash-alt"
+                                                      aria-hidden="true"></i> </a>
+
             </td>
         </tr>
-
         </tbody>
     </table>
     <nav th:replace="~{plantillas/pag-nav::paginador}"></nav>

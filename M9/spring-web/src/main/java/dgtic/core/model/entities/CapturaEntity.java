@@ -1,10 +1,12 @@
 package dgtic.core.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dgtic.core.validation.NoEspacioNoVacio;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -50,5 +52,8 @@ public class CapturaEntity {
     @ManyToOne
     @JoinColumn(name = "id_clo")
     private CaladeroEntity caladero;
+
+
+
 
 }
