@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +35,10 @@ public class BarcoServiceImpl implements BarcoService {
     public BarcoEntity buscarPorId(Integer id) {
         Optional<BarcoEntity> optional = barcoRepository.findById(id);
         return optional.orElse(null);
+    }
+
+    @Override
+    public List<BarcoEntity> buscarBarco() {
+        return barcoRepository.findAll();
     }
 }

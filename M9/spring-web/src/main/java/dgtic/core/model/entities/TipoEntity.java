@@ -1,12 +1,13 @@
 package dgtic.core.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dgtic.core.validation.NoEspacioNoVacio;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,13 @@ public class TipoEntity {
     @Length(min = 1, max = 15)
     @Column(name = "nombre")
     private String nombre;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "tipo",
+            fetch = FetchType.EAGER
+    )
+    private Set<EspecieEntity> especie;
 }

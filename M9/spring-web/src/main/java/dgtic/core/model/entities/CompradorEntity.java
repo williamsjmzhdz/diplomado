@@ -1,13 +1,13 @@
 package dgtic.core.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Set;
 
 @Entity(name = "comprador")
 @Data
@@ -46,4 +46,13 @@ public class CompradorEntity {
     @Size(max = 80, message = "El correo no puede tener más de 80 caracteres.")
     @Column(name = "correo")
     private String correo;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "comprador",
+            fetch = FetchType.EAGER
+    )
+    private Set<CompraEntity> compra;
 }

@@ -4,49 +4,47 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
 
-@Entity(name = "lote")
+@Entity(name = "compra")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LoteEntity {
+public class CompraEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_lte")
     private Integer id_lte;
+
+    @Column(name="precio_kilo_final")
+    @Digits(integer = 3,fraction = 2)
+    @DecimalMin(value = "0.0",inclusive = false)
+    private BigDecimal precioKiloFinal;
+
+    @Column(name="precio_total")
+    @Digits(integer = 3,fraction = 2)
+    @DecimalMin(value = "0.0",inclusive = false)
+    private BigDecimal precioTotal;
 
     @Column(name = "fecha")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm")
     private LocalDateTime fecha;
 
-    @Column(name = "kilos")
-    @Min(1)
-    private int kilos;
-
-    @Column(name = "numero_cajas")
-    private int numeroCajas;
-
-    @Column(name = "precio_kilo_salida")
-    @Digits(integer = 3, fraction = 2)
-    @DecimalMin(value = "0.0", inclusive = false)
-    private BigDecimal precioKiloSalida;
+    @OneToOne
+    @JsonIgnore
+    @MapsId
+    @JoinColumn(name = "id_lte")
+    private LoteEntity lote;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    @OneToMany(
-            mappedBy = "lote",
-            fetch = FetchType.EAGER
-    )
-    private Set<EspecieEntity> especie;
-
-
+    @ManyToOne
+    @JoinColumn(name = "codigo_cpr")
+    private CompradorEntity comprador;
 }

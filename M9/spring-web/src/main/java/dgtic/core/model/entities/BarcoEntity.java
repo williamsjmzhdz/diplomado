@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity(name = "barco")
 @Data
 @NoArgsConstructor
@@ -22,5 +24,11 @@ public class BarcoEntity {
     @Column(name = "nombre")
     @Size(max = 50, message = "El nombre no puede tener más de 50 caracteres.")
     private String nombre;
+
+    @OneToMany(
+            mappedBy = "barco",
+            fetch = FetchType.EAGER
+    )
+    private Set<CapturaEntity> captura;
 
 }

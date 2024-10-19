@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity(name = "caladero")
 @Data
@@ -29,5 +30,11 @@ public class CaladeroEntity {
     @Column(name = "extension")
     @Digits(integer = 3, fraction = 2)
     private BigDecimal extension;
+
+    @OneToMany(
+            mappedBy = "caladero",
+            fetch = FetchType.EAGER
+    )
+    private Set<CapturaEntity> captura;
 
 }
