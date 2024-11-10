@@ -1,6 +1,7 @@
 package mx.unam.dgtic.service;
 
 import mx.unam.dgtic.dto.AlumnoDto;
+import mx.unam.dgtic.exception.EstadoNoExisteException;
 import mx.unam.dgtic.model.Alumno;
 import mx.unam.dgtic.model.Estado;
 import mx.unam.dgtic.repository.AlumnoRepository;
@@ -57,13 +58,13 @@ public class AlumnoDtoService implements IAlumnoDtoService {
 
 
     @Override
-    public AlumnoDto updateAlumno(AlumnoDto alumno) throws ParseException {
+    public AlumnoDto updateAlumno(AlumnoDto alumno) throws ParseException, EstadoNoExisteException {
         Alumno alumnoActualizado = alumnoRepository.save(this.convertToEntity(alumno));
         return this.convertToDto(alumnoActualizado);
     }
 
     @Override
-    public AlumnoDto createAlumno(AlumnoDto alumno) throws ParseException {
+    public AlumnoDto createAlumno(AlumnoDto alumno) throws ParseException, EstadoNoExisteException {
         Alumno alumnoSalvado = alumnoRepository.save(this.convertToEntity(alumno));
         return convertToDto(alumnoSalvado);
     }
@@ -99,10 +100,13 @@ public class AlumnoDtoService implements IAlumnoDtoService {
         return alumnoDto;
     }
 
-    private Alumno convertToEntity(AlumnoDto alumnoDto) throws ParseException {
+    private Alumno convertToEntity(AlumnoDto alumnoDto) throws ParseException, EstadoNoExisteException {
         Alumno alumno = modelMapper.map(alumnoDto, Alumno.class);
         if (alumnoDto.getEstado() != null && !alumnoDto.getEstado().isEmpty()) {
             Estado estado = estadoRepository.findByEstado(alumnoDto.getEstado());
+            if (estado == null) {
+                throw new EstadoNoExisteException("El estado no existe!");
+            }
             alumno.setEstado(estado);
         }
         if (alumnoDto.getFnac() != null && !alumnoDto.getFnac().isEmpty() && !alumnoDto.getFnac().isBlank()) {
