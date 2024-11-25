@@ -31,7 +31,7 @@ public class SecurityConfiguration {
     @Bean
     public LdapContextSource contextSource() {
         LdapContextSource ldapContextSource = new LdapContextSource();
-        ldapContextSource.setUrl("ldap://localhost:10309");
+        ldapContextSource.setUrl("ldap://localhost:10389");
         ldapContextSource.setUserDn("uid=admin, ou=system");
         ldapContextSource.setPassword("secret");
         return ldapContextSource;
@@ -40,7 +40,7 @@ public class SecurityConfiguration {
     @Bean
     AuthenticationManager authManager(BaseLdapPathContextSource source) {
         LdapBindAuthenticationManagerFactory factory = new LdapBindAuthenticationManagerFactory(source);
-        factory.setUserDnPatterns("cn={0},ou=users");
+        factory.setUserDnPatterns("cn={0},ou=users,ou=system");
         return factory.createAuthenticationManager();
     }
 
